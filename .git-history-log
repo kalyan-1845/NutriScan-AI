@@ -1,1 +1,1 @@
-﻿Revision 2026-04-10 09:25:01: Improve logging granularity for inference timings
+﻿Revision 2026-04-10 09:26:01: Optimize confidence thresholding logic for detection accuracy
