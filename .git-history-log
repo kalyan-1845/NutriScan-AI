@@ -1,1 +1,1 @@
-﻿Revision 2026-04-10 09:24:01: Draft initial Dockerfile for backend containerization
+﻿Revision 2026-04-10 09:25:01: Improve logging granularity for inference timings
