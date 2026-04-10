@@ -1,0 +1,10 @@
+﻿venv/
+env/
+node_modules/
+package-lock.json
+dist/
+build/
+*.pyc
+__pycache__/
+weights/*.pt
+.git-history-log
