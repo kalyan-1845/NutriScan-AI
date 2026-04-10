@@ -1,31 +1,25 @@
-# NutriScan-AI: Indian Food Recognition REST API
+﻿# NutriScan-AI: Indian Food Recognition REST API
 # Unified entry point for model inference
 
 import argparse
 import io
 import os
+import sys
 import torch
+from pathlib import Path
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from PIL import Image
-from models.experimental import attempt_load
-from utils.general import cv2, non_max_suppression, scale_boxes
-from utils.torch_utils import select_device
+
+# Ensure Hub directory is trusted and in path
+hub_dir = torch.hub.get_dir()
+# We don't need to manually add to path if we use trust_repo=True correctly, 
+# but we will force it to be safe for Python 3.12
+os.environ['TORCH_HUB_TRUST_REPOS'] = '1'
 
 app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
+CORS(app) 
 models = {}
-
-# Set of allowed Indian Food categories from data.yaml
-FOOD_CATEGORIES = [
-    "Aloo Gobi", "Aloo Matar", "Aloo Methi", "Aloo Tikki", "Apple", "Bhindi Masala",
-    "Biryani", "Boiled Egg", "Bread", "Burger", "Butter Chicken", "Chai",
-    "Chicken Curry", "Chicken Tikka", "Chicken Wings", "Chole", "Daal",
-    "French Fries", "French Toast", "Fried Egg", "Kadhi Pakora", "Kheer",
-    "Lobia Curry", "Omelette", "Onion Pakora", "Onion Rings", "Palak Paneer",
-    "Pancakes", "Paratha", "Rice", "Roti", "Samosa", "Sandwich", "Spring Rolls",
-    "Waffles", "White Rice"
-]
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -33,7 +27,6 @@ def health_check():
 
 @app.route('/v1/predict', methods=['POST'])
 def predict():
-    """Main prediction endpoint for food detection"""
     if 'image' not in request.files:
         return jsonify({"error": "No image uploaded"}), 400
     
@@ -44,9 +37,7 @@ def predict():
         im_bytes = im_file.read()
         im = Image.open(io.BytesIO(im_bytes)).convert('RGB')
         
-        # Performance inference using torch.hub or local model if loaded
         if model_name not in models:
-            # Fallback to loading from hub if not already cached
             models[model_name] = torch.hub.load('ultralytics/yolov5', model_name, pretrained=True, trust_repo=True)
             
         results = models[model_name](im, size=640)
@@ -67,6 +58,7 @@ if __name__ == '__main__':
     for m in args.models:
         print(f"Loading model: {m}...")
         try:
+            # Re-verify ultralytics is installed in the current venv
             models[m] = torch.hub.load('ultralytics/yolov5', m, pretrained=True, trust_repo=True)
         except Exception as e:
             print(f"Failed to load {m}: {e}")

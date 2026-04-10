@@ -1,146 +1,138 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload } from '../components/Upload';
-import { Result } from '../components/Result';
-import { Loader } from '../components/Loader';
-import { Sparkles, Terminal, ShieldCheck } from 'lucide-react';
+import Upload from '../components/Upload';
+import Result from '../components/Result';
+import Loader from '../components/Loader';
 
-export default function Home() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+const BACKEND_URL = 'http://localhost:8080/v1/predict';
+
+const Home = () => {
+  const [state, setState] = useState({
+    status: 'idle', // idle, loading, success, error
+    data: null,
+    error: null
+  });
 
   const handleUpload = async (file) => {
-    setLoading(true);
-    setError(null);
-    setData(null);
-
+    setState({ status: 'loading', data: null, error: null });
+    
     const formData = new FormData();
     formData.append('image', file);
+    formData.append('model', 'yolov5s');
 
     try {
-      // API call to the backend configured on port 8080
-      const response = await axios.post('http://localhost:8080/v1/predict', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      // Configuration for Axios
+      const response = await axios.post(BACKEND_URL, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        timeout: 10000 // 10s timeout
       });
-      
-      // The backend returns a JSON string that needs parsing
-      const results = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
-      setData(results);
+
+      if (response.data && response.data.length > 0) {
+        setState({ status: 'success', data: response.data, error: null });
+      } else {
+        setState({ status: 'error', data: null, error: 'No food detected in this image. Please try a clearer shot.' });
+      }
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to connect to the Neural Core. Ensure backend is running on port 8080.");
-    } finally {
-      setLoading(false);
+      console.error("API Error:", err);
+      let errorMsg = 'Server connection failed. Please ensure the backend is running.';
+      
+      if (err.response) {
+        errorMsg = err.response.data.error || `Server Error (${err.response.status})`;
+      } else if (err.request) {
+        errorMsg = 'Network Error: Backend is not responding (Check port 8080).';
+      }
+
+      setState({ status: 'error', data: null, error: errorMsg });
     }
   };
 
-  const reset = () => {
-    setData(null);
-    setError(null);
-    setLoading(false);
-  };
+  const reset = () => setState({ status: 'idle', data: null, error: null });
 
   return (
-    <div className="min-h-screen bg-dark overflow-x-hidden">
-      {/* Decorative Background Elements */}
-      <div className="fixed inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/20 blur-[120px] rounded-full -mr-64 -mt-64 animate-pulse-slow" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 blur-[100px] rounded-full -ml-32 -mb-32" />
+    <div className="min-h-screen relative bg-bg-dark selection:bg-amber-500/30">
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-amber-500/10 blur-[150px] rounded-full"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 blur-[150px] rounded-full"></div>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-24">
-        {/* Navigation / Header */}
-        <header className="flex items-center justify-between mb-20 animate-fade-in">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-              <Sparkles className="w-6 h-6 text-white" />
-            </div>
-            <h1 className="font-outfit font-extrabold text-2xl tracking-tight">NutriScan <span className="text-accent">AI</span></h1>
-          </div>
-          <div className="flex gap-6">
-            <div className="flex items-center gap-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
-               <ShieldCheck className="w-4 h-4" />
-               SECURE PROXY
-            </div>
-            <div className="flex items-center gap-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
-               <Terminal className="w-4 h-4" />
-               NEURAL CORE v1.0
-            </div>
-          </div>
+      <div className="max-w-4xl mx-auto px-6 py-20 relative z-10">
+        <header className="text-center mb-20 space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-block px-5 py-2 glass-card rounded-full text-amber-500 text-xs font-black tracking-[0.2em] uppercase"
+          >
+            Neural Vision Engine v1.0
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-6">
+              NutriScan<span className="gradient-heading">AI</span>
+            </h1>
+            <p className="text-xl text-white/40 max-w-2xl mx-auto font-medium">
+              Professional-grade Indian food recognition and real-time nutritional estimation using deep learning.
+            </p>
+          </motion.div>
         </header>
 
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-white font-outfit font-black text-5xl lg:text-7xl mb-6 leading-[1.1]"
-          >
-            Smarter Eating <br />
-            <span className="text-gradient">Powered by AI</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/40 text-lg lg:text-xl max-w-2xl mx-auto font-medium"
-          >
-            Instant calorie estimation and nutrient breakdown for your favorite Indian dishes using computer vision.
-          </motion.p>
-        </div>
-
-        {/* Main Interface */}
-        <div className="relative">
+        <main>
           <AnimatePresence mode="wait">
-            {!data && !loading && (
-              <motion.div
-                key="upload-zone"
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Upload onUpload={handleUpload} isUploading={loading} />
-              </motion.div>
+            {state.status === 'idle' && (
+              <Upload key="upload" onUpload={handleUpload} />
             )}
 
-            {loading && (
-              <motion.div
-                key="loading-zone"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="py-20"
-              >
-                <Loader />
-              </motion.div>
+            {state.status === 'loading' && (
+              <Loader key="loader" />
             )}
 
-            {data && !loading && (
-              <motion.div
-                key="result-zone"
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            {state.status === 'success' && (
+              <Result key="result" data={state.data} onReset={reset} />
+            )}
+
+            {state.status === 'error' && (
+              <motion.div 
+                key="error"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass-card rounded-[2rem] p-12 border-red-500/20 text-center space-y-6"
               >
-                <Result data={data} onReset={reset} />
+                <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto text-red-500 text-4xl">
+                  ⚠️
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-3xl font-bold text-red-400">Analysis Halted</h3>
+                  <p className="text-white/40 text-lg">{state.error}</p>
+                </div>
+                <button 
+                  onClick={reset}
+                  className="px-8 py-3 bg-white/5 hover:bg-white/10 rounded-xl font-bold transition-all"
+                >
+                  Clear & Try Again
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
+        </main>
 
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-8 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm text-center font-medium"
-            >
-              {error}
-            </motion.div>
-          )}
-        </div>
+        <footer className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 opacity-20 hover:opacity-100 transition-opacity">
+          <div className="text-xs font-bold uppercase tracking-widest text-white/40">
+            Powered by YOLOv5 • PyTorch • Vite
+          </div>
+          <div className="text-xs font-medium text-white/30">
+            © 2026 NutriScan-AI Labs. All Rights Reserved.
+          </div>
+        </footer>
       </div>
     </div>
   );
-}
+};
+
+export default Home;
