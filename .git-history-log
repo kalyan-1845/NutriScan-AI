@@ -1,1 +1,1 @@
-﻿Revision 2026-04-10 10:32:01: Optimize backend thread pool for concurrent requests
+﻿Revision 2026-04-10 10:33:01: Refine boundary box color assignments based on confidence
