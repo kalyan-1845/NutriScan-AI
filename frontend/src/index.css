@@ -44,3 +44,19 @@ body {
 .animate-pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
 }
+
+.nutrient-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.history-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.history-card:hover {
+  transform: translateX(8px);
+  background: rgba(255, 255, 255, 0.05);
+}
