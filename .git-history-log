@@ -1,1 +1,1 @@
-﻿Revision 2026-04-10 11:00:01: Optimize inference pipeline using TensorRT if available
+﻿Revision 2026-04-10 11:01:01: Refine boundary box smoothing for video stream results
