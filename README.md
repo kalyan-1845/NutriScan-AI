@@ -69,6 +69,15 @@ The frontend uses **Axios** with dedicated service logic to handle image uploads
 - **License**: This project is licensed under the [MIT License](LICENSE).
 - **Security**: See [SECURITY.md](SECURITY.md) for vulnerability reporting and security policies.
 
+## 🤝 Contributors
+
+Contributions, issues, and feature requests are welcome!
+Feel free to check [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guide.
+
+<a href="https://github.com/kalyan-1845/NutriScan-AI/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kalyan-1845/NutriScan-AI" />
+</a>
+
 ---
 
 ## 👨‍💻 Developer
