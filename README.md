@@ -1,23 +1,77 @@
-# Deep Learning Based Food Recognition and Calorie Estimation for popular Indian Foods
+# 🍱 NutriScan-AI: Indian Food Recognition & Calorie Estimation
 
-## Summary of Important research papers to embark into this field of research 
+![NutriScan-AI Banner](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge&logo=pytorch)
+![License](https://img.shields.io/badge/License-MIT-amber?style=for-the-badge)
+![Tech](https://img.shields.io/badge/Backend-Python%20%7C%20Flask-blue?style=for-the-badge)
+![UI](https://img.shields.io/badge/Frontend-React%20%7C%20Tailwind-61dafb?style=for-the-badge)
 
-| **Paper Title** | **DOI** | **Summary** |
-| --- | --- | --- |
-| Deep learning in food category recognition | [10.1016/j.inffus.2023.101859](https://doi.org/10.1016/j.inffus.2023.101859) | Focuses on deep learning for food category recognition. |
-| DeepFood: Food Image Analysis and Dietary Assessment via Deep Model | [10.1109/ACCESS.2020.2973625](https://doi.org/10.1109/ACCESS.2020.2973625) | Introduces DeepFood, a model for food image analysis and dietary assessment using deep learning. |
-| A review on vision-based analysis for automatic dietary assessment | [10.1016/j.tifs.2022.02.017](https://doi.org/10.1016/j.tifs.2022.02.017) | Offers a comprehensive review of vision-based analysis for automatic dietary assessment. |
-| Analysis of Convolutional Neural Networks on Indian food detection and estimation of calories | [10.1016/j.matpr.2022.03.122](https://doi.org/10.1016/j.matpr.2022.03.122) | Analyzes the use of CNNs for Indian food detection and calorie estimation. |
-| Applying Image-Based Food-Recognition Systems on Dietary Assessment, A Systematic Review | [10.1093/advances/nmac078](https://doi.org/10.1093/advances/nmac078) | Systematic review of image-based food recognition systems for dietary assessment. |
-| YOLO*C — Adding context improves YOLO performance | [10.1016/j.neucom.2023.126655](https://doi.org/10.1016/j.neucom.2023.126655) | How adding context enhances YOLO performance. |
-| Small-object detection based on YOLOv5 in autonomous driving systems | [10.1016/j.patrec.2023.03.009](https://doi.org/10.1016/j.patrec.2023.03.009) | Discusses small-object detection using YOLOv5 in autonomous driving systems. |
-| Vision-based food nutrition estimation via RGB-D fusion network | [10.1016/j.foodchem.2023.136309](https://doi.org/10.1016/j.foodchem.2023.136309) | Presents a method for food nutrition estimation using an RGB-D fusion network. |
-| A Novel Ensemble Weight-Assisted Yolov5-Based Deep Learning Technique for the Localization and Detection of Malaria Parasites | [10.3390/electronics11233999](https://doi.org/10.3390/electronics11233999) | Introduces a novel ensemble weight-assisted YOLOv5-based technique for detecting malaria parasites. |
-| An Image Augmentation Method Based on Limited Samples for Object Tracking Based on Mobile Platform | [10.3390/s22051967](https://doi.org/10.3390/s22051967) | Proposes an image augmentation method for object tracking on mobile platforms with limited samples. |
+**NutriScan-AI** is a professional, full-stack Artificial Intelligence application designed to identify Indian food items from images and provide instant nutritional insights and calorie estimations.
 
-## Model Architecture 
-![image](https://github.com/Yogeshpvt/Deep-Learning-Based-Food-Recognition-and-Calorie-Estimation-for-Indian-Food-Images/assets/87895840/a756ae7c-a01c-424a-8ab0-15b90f796304)
-![image](https://github.com/Yogeshpvt/Deep-Learning-Based-Food-Recognition-and-Calorie-Estimation-for-Indian-Food-Images/assets/87895840/2f245e3a-274b-4b15-9522-849ef910ccde)
-![image](https://github.com/Yogeshpvt/Deep-Learning-Based-Food-Recognition-and-Calorie-Estimation-for-Indian-Food-Images/assets/87895840/1184b870-1abd-422c-a23b-db68f86633bb)
+## 🚀 Features
 
+- **AI Vision Engine**: Deep Learning model (YOLOv5) optimized for Indian cuisine.
+- **Instant Recognition**: Analyzes images to detect multiple food items with confidence scores.
+- **Calorie Estimation**: Intelligent mapping of detected dishes to nutritional data.
+- **Premium UI**: Modern glassmorphism dashboard built with React and Tailwind CSS v4.
+- **Interactive UX**: Cinematic animations using Framer Motion and real-time image previews.
 
+## 🛠️ Architecture
+
+NutriScan-AI is built with a modern full-stack decoupled architecture:
+
+- **Frontend**: React.js (Vite) + Tailwind CSS v4 + Axios + Framer Motion.
+- **Backend**: Python 3.12 + Flask + PyTorch (YOLOv5 Engine).
+- **Communication**: RESTful API with CORS support for secure cross-origin requests.
+
+---
+
+## 🚦 Getting Started
+
+### 1. Prerequisites
+- Python 3.12+
+- Node.js & npm
+
+### 2. Backend Setup
+```bash
+# Verify virtual environment
+.\venv\Scripts\activate
+
+# Install dependencies (if not already done)
+pip install -r requirements.txt
+
+# Start the server
+python main.py --port 8080
+```
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The application will be accessible at `http://localhost:5173`.
+
+---
+
+## 🧪 Technical Implementation
+
+### Object Detection (YOLOv5)
+The system leverages the YOLOv5 (You Only Look Once) architecture for real-time inference. By utilizing a pre-trained backbone and a specialized Indian food mapping layer, it achieves high precision on regional dishes.
+
+### Communication Layer
+The frontend uses **Axios** with dedicated service logic to handle image uploads via `multipart/form-data`. It includes built-in timeout handling and detailed error state management for a production-grade experience.
+
+---
+
+## 📜 License & Security
+
+- **License**: This project is licensed under the [MIT License](LICENSE).
+- **Security**: See [SECURITY.md](SECURITY.md) for vulnerability reporting and security policies.
+
+---
+
+## 👨‍💻 Developer
+**kalyan-1845**
+
+Developed with ❤️ for the Indian Food Recognition & Nutrition domain.
