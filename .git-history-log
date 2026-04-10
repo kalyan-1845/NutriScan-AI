@@ -1,1 +1,1 @@
-﻿Revision 2026-04-10 10:11:01: Enhance image normalization using dataset-specific stats
+﻿Revision 2026-04-10 10:12:01: Implement support for custom model weights via config
