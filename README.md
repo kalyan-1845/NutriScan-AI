@@ -1,86 +1,46 @@
-# 🍱 NutriScan-AI: Indian Food Recognition & Calorie Estimation
+# 🍱 NutriScan-AI — Indian Food Recognition & Calorie Estimation
 
-![NutriScan-AI Banner](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge&logo=pytorch)
-![License](https://img.shields.io/badge/License-MIT-amber?style=for-the-badge)
-![Tech](https://img.shields.io/badge/Backend-Python%20%7C%20Flask-blue?style=for-the-badge)
-![UI](https://img.shields.io/badge/Frontend-React%20%7C%20Tailwind-61dafb?style=for-the-badge)
+[![Model: YOLOv5 PyTorch](https://img.shields.io/badge/Model-YOLOv5%20%7C%20PyTorch-ee4c2c?style=for-the-badge&logo=pytorch)]()
+[![Backend: Flask Python](https://img.shields.io/badge/Backend-Flask%20%7C%20Python-blue?style=for-the-badge&logo=flask)]()
+[![Frontend: React & TS](https://img.shields.io/badge/Frontend-React%20%7C%20TypeScript-61dafb?style=for-the-badge&logo=react)]()
 
-**NutriScan-AI** is a professional, full-stack Artificial Intelligence application designed to identify Indian food items from images and provide instant nutritional insights and calorie estimations.
-
-## 🚀 Features
-
-- **AI Vision Engine**: Deep Learning model (YOLOv5) optimized for Indian cuisine.
-- **Instant Recognition**: Analyzes images to detect multiple food items with confidence scores.
-- **Calorie Estimation**: Intelligent mapping of detected dishes to nutritional data.
-- **Premium UI**: Modern glassmorphism dashboard built with React and Tailwind CSS v4.
-- **Interactive UX**: Cinematic animations using Framer Motion and real-time image previews.
-
-## 🛠️ Architecture
-
-NutriScan-AI is built with a modern full-stack decoupled architecture:
-
-- **Frontend**: React.js (Vite) + Tailwind CSS v4 + Axios + Framer Motion.
-- **Backend**: Python 3.12 + Flask + PyTorch (YOLOv5 Engine).
-- **Communication**: RESTful API with CORS support for secure cross-origin requests.
+> **"NutriScan-AI is a high-performance computer vision application designed to identify Indian food dishes from images and provide instant nutritional calorie estimations. Houses a YOLOv5 model and an interactive React web dashboard."**
 
 ---
 
-## 🚦 Getting Started
+## ⚡ The Recruiter Takeaway (Why This Matters)
+1. **Custom Object Detection**: Uses a PyTorch YOLOv5 architecture mapped with regional Indian food dataset weights to detect multiple dishes in a single frame.
+2. **Dynamic UI/UX**: Built with React (Vite), Framer Motion, and Tailwind CSS v4, featuring high-fidelity glassmorphic charts and calorie progress bars.
+3. **Decoupled Architecture**: Fully containerized stack with modular RESTful APIs and cross-origin security rules.
 
-### 1. Prerequisites
-- Python 3.12+
-- Node.js & npm
+---
 
-### 2. Backend Setup
+## 🏗️ Computer Vision Pipeline
+
+```mermaid
+graph TD
+    Image[User Image Upload] --> Flask[Flask REST API Backend]
+    Flask --> PyTorch[PyTorch YOLOv5 Core]
+    PyTorch --> Box[Bounding Box Triangulation]
+    Box --> Classification[Food Class Identification]
+    Classification --> Database[(Nutritional SQLite Engine)]
+    Database --> Output[Calorie & Macro Estimation]
+```
+
+---
+
+## 🛠️ Quick Launch
+
+### 1. Requirements
+* Install [Python 3.12+](https://www.python.org/) and [Node.js](https://nodejs.org/).
+
+### 2. Startup Command
 ```bash
-# Verify virtual environment
-.\venv\Scripts\activate
+git clone https://github.com/kalyan-1845/NutriScan-AI.git
+cd NutriScan-AI
 
-# Install dependencies (if not already done)
+# Start Vision API Server
 pip install -r requirements.txt
-
-# Start the server
 python main.py --port 8080
 ```
-
-### 3. Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The application will be accessible at `http://localhost:5173`.
-
----
-
-## 🧪 Technical Implementation
-
-### Object Detection (YOLOv5)
-The system leverages the YOLOv5 (You Only Look Once) architecture for real-time inference. By utilizing a pre-trained backbone and a specialized Indian food mapping layer, it achieves high precision on regional dishes.
-
-### Communication Layer
-The frontend uses **Axios** with dedicated service logic to handle image uploads via `multipart/form-data`. It includes built-in timeout handling and detailed error state management for a production-grade experience.
-
----
-
-## 📜 License & Security
-
-- **License**: This project is licensed under the [MIT License](LICENSE).
-- **Security**: See [SECURITY.md](SECURITY.md) for vulnerability reporting and security policies.
-
-## 🤝 Contributors
-
-Contributions, issues, and feature requests are welcome!
-Feel free to check [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guide.
-
-<a href="https://github.com/kalyan-1845/NutriScan-AI/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=kalyan-1845/NutriScan-AI" />
-</a>
-
----
-
-## 👨‍💻 Developer
-**kalyan-1845**
-
-Developed with ❤️ for the Indian Food Recognition & Nutrition domain.
+*To launch the frontend web client, navigate to the `frontend/` directory and execute `npm run dev`.*
