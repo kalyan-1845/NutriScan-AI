@@ -1,24 +1,4 @@
 # Security Policy
 
 ## Supported Versions
-
-Currently, the following versions of NutriScan-AI are supported with security updates:
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
-| < 1.0.0 | :x:                |
-
-## Reporting a Vulnerability
-
-We take the security of NutriScan-AI seriously. If you believe you have found a security vulnerability, please report it to us by following these steps:
-
-1. **Email us**: Send a detailed report to `prsnlkalyan2@gmail.com`.
-2. **Details**: Include a description of the vulnerability, steps to reproduce, and any potential impact.
-3. **Response**: We will acknowledge your report within 48 hours and provide a timeline for a fix.
-
-Please do not disclose the vulnerability publicly until we have had a chance to address it.
-
----
-**kalyan-1845**
-NutriScan-AI Labs
+We support the latest version for security updates.
